@@ -12,11 +12,14 @@ public class HTML {
         String[][] pref = {
             {"lang","en"}
         };
-        String form = Form.cook("");
-        body = body + form + "hello wordl!";
-        String inside ="<head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"><title>"+title+"</title>"+head+"</head><body>"+body+"</body>";
-        Label html = new Label.MoldBuilder(true, "html").inside(inside).pref(pref).build();
-        return "<!DOCTYPE html>" + html.toString();
+        /* code testing */
+        String input = Input.cook("", 1);
+        String form = Form.cook(input,2);//here toDo
+        body = body + form;
+        /* end code testing */
+        String inside ="\t<head>\n\t\t<meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"/>\n\t\t<title>"+title+"</title>"+head+"\n\t</head>\n\t<body>\n"+body+"\n\t</body>";
+        Label html = new Label.MoldBuilder(true, "html").inside(inside).pref(pref).tabLvl(0).build();
+        return "<!DOCTYPE html>\n" + html.toString();
     }
 
 }
@@ -25,7 +28,7 @@ public class HTML {
 
 class Form {
 
-    public static String cook(String inside)
+    public static String cook(String inside, Integer tabLvl)
     {   
         String[] id = {"id","id"};
         String[] class_ = {"class",""};
@@ -36,17 +39,36 @@ class Form {
             id, class_, style
         };
         
-        Label form = new Label.MoldBuilder(true, "form").inside(inside).pref(pref).build();
+        Label form = new Label.MoldBuilder(true, "form").inside(inside).pref(pref).tabLvl(tabLvl).build();
+        return form.toString();
+    }
+}
+
+class Input {
+
+    public static String cook(String inside, Integer tabLvl)
+    {   
+        String[] id = {"id","id"};
+        String[] class_ = {"class",""};
+        String[] style = {"style",""};
+        String[][] pref = {
+            {"type","text"},
+            id, class_, style
+        };
+        
+        Label form = new Label.MoldBuilder(false, "input").pref(pref).tabLvl(tabLvl).build();
         return form.toString();
     }
 }
 
 
+// Label *Most important Class*
 class Label {
     private final Boolean needClose;
     private final String name;
     private final String[][] pref; //preferences
     private final String inside;
+    private final Integer tabLvl;
 
     private Label(MoldBuilder builder)
     {
@@ -54,32 +76,47 @@ class Label {
         this.name = builder.name;
         this.pref = builder.pref;
         this.inside = builder.inside;
+        this.tabLvl = builder.tabLvl;
     }
 
     public Boolean getNeedClose(){ return needClose; }
     public String getName(){ return name; }
     public String[][] getPref(){ return pref; }
     public String getInside(){ return inside; }
+    public Integer getTabLvl() { return tabLvl; }
 
     // Main method
-    @Override // because java already has toString method
+    @Override 
     public String toString()
     { 
         String code = "<";
         String name = this.name;
         String pref = cookPref();
+        String tabLvl = cookTabLvl();
         String inside = ((this.inside == null)? "": this.inside);
         if(this.needClose)
         { 
-            code = code + name + pref + ">" + inside + "</" + name + ">";
+            code = tabLvl + code + name + pref + ">\n" + tabLvl +  inside + "\n" + tabLvl + "</" + name + ">";
         } else {
-            code = code + name + pref + "/>";
+            code = tabLvl + code + name + pref + "/>";
         }
         
         return code;
     }
 
-    private String cookPref(){
+    private String cookTabLvl()
+    {
+        if(this.tabLvl == null || this.tabLvl <= 0){ return ""; }
+        String code = "";
+        for (int i = this.tabLvl; i >= 1 ; i--) {
+            code = code + "\t";
+        }
+
+        return code;
+    }
+
+    private String cookPref()
+    {
         String code = "";
         String att = ""; // atribute name <label att="val"/>
         String val = "";
@@ -105,6 +142,7 @@ class Label {
         private final String name;
         private String[][] pref;
         private String inside;
+        private Integer tabLvl;
 
         // constructors
         public MoldBuilder(Boolean needClose, String name)
@@ -129,6 +167,12 @@ class Label {
         public MoldBuilder inside(String inside)
         {
             this.inside = inside;
+            return this;
+        }
+
+        public MoldBuilder tabLvl(Integer tabLvl)
+        {
+            this.tabLvl = tabLvl;
             return this;
         }
 
