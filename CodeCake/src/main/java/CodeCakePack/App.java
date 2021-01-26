@@ -1,17 +1,18 @@
 package CodeCakePack;
 
-import CodeCakePack.Maker.Maker;
+import java.io.IOException;
+
+import CodeCakePack.CodeGenerator.Chef;
 
 /**
  * Main Class (App)
  *
  */
-public class App 
-{
-    public static void main( String[] args )
+public class App {
+    public static void main(String[] args) throws IOException
     {   
-        Maker maker = new Maker();
-        maker.serve();
+        Chef maker = new Chef();
+        maker.serve(); // throws IOException
         //System.out.println( "Hello World!" );
     }
 }
