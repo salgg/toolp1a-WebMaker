@@ -29,7 +29,6 @@ public class Chef implements common{
         waiter.askOrder(); // throws IOException
         this.orders = waiter.makeOrder();
         String code = cook();
-        System.out.println(code);
 
         try {
             FileWriter myWriter = new FileWriter(this.outputFile);
@@ -56,7 +55,7 @@ public class Chef implements common{
 
 }
 
-// comon variables 
+// comon interface
 interface common {
     final String[] posibleCommands = { "html", "form", "input" };
 }

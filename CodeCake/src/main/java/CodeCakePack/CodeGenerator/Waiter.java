@@ -40,11 +40,11 @@ public class Waiter implements common{
     {
         String order = this.inputOrder;
         String[] arrOrder = order.split(" ",0);
-        List<String> list = Arrays.asList(this.posibleCommands);
+        List<String> cmmdList = Arrays.asList(common.posibleCommands);
         List<String> orderPass = new ArrayList<String>();
         Integer i = 0;
         for (String word : arrOrder) {
-            if(list.contains(word)){
+            if(cmmdList.contains(word)){
                 orderPass.add(word);
             }
             i++;
