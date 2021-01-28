@@ -35,7 +35,8 @@ public class Waiter implements common{
         this.inputOrder = consolereader.readLine();
     }
 
-    // most important method
+    /**  most important method **/
+    // toDo ej: "i want a webpage with a form inside" create a html>form>div>label,input:text,button:submit
     public List<String> makeOrder()
     {
         String order = this.inputOrder;

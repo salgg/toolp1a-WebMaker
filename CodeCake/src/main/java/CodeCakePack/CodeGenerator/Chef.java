@@ -44,11 +44,13 @@ public class Chef implements common{
     private String cook()
     {   
         String code = "";
+        
         for (String order : this.orders) {
             System.out.println("order=" + order+".");
-            if(order.equals("html")){ 
+            if(order.equals("html")){ // here 
                 code = code + HTML.cook("title", "", "");
             }
+
         }
         return code;
     }
