@@ -1,17 +1,17 @@
-package CodeCakePack.CodeGenerator.recepies.webCake;
+package CodeCakePack.CodeGenerator.recipies.webCake;
 
 /**
  * Web Code Maker
  *
  */
-public class Label {
+public class Tag {
     private final Boolean needClose;
     private final String name;
     private final String[][] pref; //preferences
     private final String inside;
     private final Integer tabLvl;
 
-    private Label(MoldBuilder builder)
+    private Tag(MoldBuilder builder)
     {
         this.needClose = builder.needClose;
         this.name = builder.name;
@@ -59,7 +59,7 @@ public class Label {
     private String cookPref()
     {
         String code = "";
-        String att = ""; // atribute name <label att="val"/>
+        String att = ""; // atribute name <Tag att="val"/>
         String val = "";
         String[][] preferences = this.pref;
 
@@ -117,18 +117,18 @@ public class Label {
             return this;
         }
 
-        public Label build()
+        public Tag build()
         {
-            Label mold = new Label(this);
-            validateLabelObject(mold);
+            Tag mold = new Tag(this);
+            validateTagObject(mold);
             return mold;
         }
 
-        private void validateLabelObject(Label mold)
+        private void validateTagObject(Tag mold)
         {
             //toDo
             //Do some basic validations to check if user object does not break any assumption of system
-            // check if this.pref has blank att with non blank val ej:<label ""="value"/> <-- error!!
+            // check if this.pref has blank att with non blank val ej:<Tag ""="value"/> <-- error!!
             // check if this.name and this.needClose  there's no null or empty types
             //if(this.inside == null ){ this.inside = ""; }
         }
