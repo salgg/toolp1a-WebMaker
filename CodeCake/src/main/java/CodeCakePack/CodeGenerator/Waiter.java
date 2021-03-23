@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import CodeCakePack.CodeGenerator.library.Lang; // testing 
-
 /**
  * the class who take the command and "translate" to code (toDo NLP processor)
  *

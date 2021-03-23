@@ -63,7 +63,7 @@ public class Chef implements commonLanguage {
         tempAttr.put("inside", "body");
 
         for (String order : this.ordersList) {
-            System.out.println("order=" + order + ".");
+            //System.out.println("order=" + order + "."); //temp debug
 
             if (Utils.strIsIn(order, commandList)) {
                 String cooked = this.moldHTML.list.get(order).cook(tempAttr);
